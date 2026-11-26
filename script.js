@@ -1,8 +1,10 @@
 /**
- * SpendWise — Week 6 Interactive Budget & Expense Tracker
+ * SpendWise — Interactive Budget & Expense Tracker
  * Connects conditionals, arrays, loops, DOM manipulation, and event listeners
  * to dynamically manage budgets and expenses directly on the webpage.
  */
+
+console.info("SpendWise production bundle initialized — live at https://spendwise-site.netlify.app/");
 
 // 1. Application Configuration & Initial Dataset (Arrays & Objects)
 const CURRENCY_SYMBOL = "$";
