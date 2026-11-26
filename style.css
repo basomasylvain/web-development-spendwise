@@ -1,96 +1,146 @@
-/* Element Selectors */
-* {
+/* Design Tokens & Color Palette */
+:root {
+  --bg-page: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-accent-soft: #eef2ff;
+  --bg-subtle: #f8fafc;
+  --primary: #0f766e;
+  --primary-hover: #115e59;
+  --primary-soft: rgba(15, 118, 110, 0.16);
+  --secondary: #4338ca;
+  --secondary-soft: #e0e7ff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-on-dark: #ffffff;
+  --subtitle-text: #ccfbf1;
+  --border-color: #cbd5e1;
+  --font-heading: 'Space Grotesk', Arial, Helvetica, sans-serif;
+  --font-body: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif;
+}
+
+/* Element Selectors & Box Model Base */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f4f6f9;
-  color: #1f2937;
-  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.55;
   padding: 2rem 1rem;
 }
 
 main {
-  max-width: 720px;
+  max-width: 740px;
   margin: 0 auto;
+}
+
+h1,
+h2 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.015em;
 }
 
 h1 {
   font-size: 2rem;
-  margin-bottom: 0.25rem;
+  line-height: 1.2;
 }
 
 h2 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
+  line-height: 1.3;
   margin-bottom: 1rem;
-  color: #111827;
+  color: var(--text-main);
 }
 
 label {
   display: block;
-  font-weight: bold;
-  margin-bottom: 0.35rem;
-  font-size: 0.95rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  font-size: 0.92rem;
+  color: var(--text-main);
 }
 
 input,
 select {
   width: 100%;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-size: 1rem;
-  background-color: #ffffff;
-  color: #1f2937;
+  font-family: var(--font-body);
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  background-color: var(--bg-surface);
+  color: var(--text-main);
 }
 
-/* ID Selectors */
+/* ID Selectors & Distinct Card Sections */
 #app-header {
-  max-width: 720px;
-  margin: 0 auto 1.5rem auto;
-  background-color: #0f766e;
-  color: #ffffff;
-  padding: 1.5rem;
-  border-radius: 10px;
+  max-width: 740px;
+  margin: 0 auto 1.75rem auto;
+  background-color: var(--primary);
+  color: var(--text-on-dark);
+  padding: 1.65rem 1.5rem;
+  border: 1px solid var(--primary-hover);
+  border-radius: 14px;
   text-align: center;
 }
 
 #add-expense-section {
-  background-color: #ffffff;
-  border-left: 5px solid #0f766e;
+  background-color: var(--bg-surface);
+  border: 1px solid #e2e8f0;
+  border-left: 6px solid var(--primary);
+  margin-bottom: 1.75rem;
 }
 
 #expenses-list-section {
-  background-color: #eef2ff;
-  border-left: 5px solid #4f46e5;
+  background-color: var(--bg-accent-soft);
+  border: 1px solid #c7d2fe;
+  border-left: 6px solid var(--secondary);
+  margin-bottom: 1.75rem;
 }
 
 #budget-tips-section {
-  background-color: #ffffff;
-  border-left: 5px solid #0284c7;
+  background-color: var(--bg-surface);
+  border: 1px solid #e2e8f0;
+  border-left: 6px solid var(--primary);
+  margin-bottom: 1.5rem;
 }
 
 #expenses-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #ffffff;
-  border-radius: 6px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
   overflow: hidden;
+  font-family: var(--font-body);
 }
 
 #expenses-table th,
 #expenses-table td {
-  border: 1px solid #cbd5e1;
-  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 0.95rem;
   text-align: left;
+  font-size: 0.95rem;
 }
 
 #expenses-table thead {
-  background-color: #3730a3;
-  color: #ffffff;
+  background-color: var(--secondary);
+  color: var(--text-on-dark);
+}
+
+#expenses-table th {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 /* Class Selectors */
@@ -98,81 +148,91 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
+  gap: 0.7rem;
+  margin-bottom: 0.35rem;
 }
 
 .brand-logo {
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #ccfbf1;
+  color: var(--subtitle-text);
 }
 
 .card {
-  padding: 1.5rem;
-  margin-bottom: 1.25rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  padding: 1.6rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.05rem;
 }
 
 .btn-primary {
-  background-color: #0f766e;
-  color: #ffffff;
-  border: none;
-  padding: 0.65rem 1.25rem;
-  font-size: 1rem;
-  border-radius: 6px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  background-color: var(--primary);
+  color: var(--text-on-dark);
+  border: 1px solid var(--primary-hover);
+  padding: 0.7rem 1.35rem;
+  font-size: 0.98rem;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
 .btn-primary:hover {
-  background-color: #115e59;
+  background-color: var(--primary-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
 }
 
 .usage-guide {
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  background-color: #f8fafc;
+  margin-top: 1.15rem;
+  padding: 0.85rem 1rem;
+  background-color: var(--bg-subtle);
   border: 1px solid #e2e8f0;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .usage-guide summary {
-  font-weight: bold;
+  font-family: var(--font-heading);
+  font-weight: 600;
   cursor: pointer;
-  color: #0f766e;
+  color: var(--primary);
 }
 
 .usage-guide p {
-  margin-top: 0.5rem;
+  margin-top: 0.55rem;
   font-size: 0.92rem;
-  color: #334155;
+  color: var(--text-muted);
 }
 
 .section-intro {
-  margin-bottom: 0.85rem;
-  color: #475569;
+  margin-bottom: 0.9rem;
+  color: var(--text-muted);
   font-size: 0.95rem;
 }
 
 .table-wrapper {
   overflow-x: auto;
+  border-radius: 10px;
 }
 
 .video-container iframe {
   max-width: 100%;
-  border-radius: 6px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
 }
 
-/* Advanced CSS Selectors */
+/* Advanced & Interactive Selectors */
 .expenses-section td {
-  font-size: 0.95rem;
+  color: var(--text-main);
 }
 
 .add-expense-section > form {
@@ -180,11 +240,11 @@ select {
 }
 
 #expenses-table tbody tr:nth-child(even) {
-  background-color: #f1f5f9;
+  background-color: var(--bg-subtle);
 }
 
 #expenses-table tbody tr:hover {
-  background-color: #e0e7ff;
+  background-color: var(--secondary-soft);
 }
 
 input:not([type="button"]) {
@@ -192,8 +252,10 @@ input:not([type="button"]) {
 }
 
 input:focus,
-select:focus {
+select:focus,
+.btn-primary:focus-visible,
+.usage-guide summary:focus-visible {
   outline: none;
-  border-color: #0f766e;
-  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
 }
