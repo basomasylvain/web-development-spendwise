@@ -1,37 +1,36 @@
-# Week 6 Assignment: Make SpendWise Interactive
+# SpendWise — Personal Budget & Expense Tracker
 
-## Overview
-**SpendWise** is a personal budget and expense tracker dashboard built for **Web Development Fundamentals** at [PLP Academy](https://academy.powerlearnprojectafrica.org/dashboard). In Week 6, SpendWise evolves from console-based `prompt()` scripts into a fully interactive web application where users can update their monthly budget, add or remove expenses through live form controls, filter transactions by category, and see real-time budget health warnings directly in the browser UI.
+## Project Description
+**SpendWise** is a personal budget and expense tracker web application built across the **Web Development Fundamentals** module at [PLP Academy](https://academy.powerlearnprojectafrica.org/dashboard). Users can set a monthly budget target, view real-time budget health status alerts, monitor spending across six categories (**Food**, **Transport**, **Rent**, **Entertainment**, **Savings**, and **Utilities**), add or delete expenses via an interactive form and table, filter entries by category, and watch an embedded budgeting guide.
 
-## Improvements Made This Week
-- **Eliminated Browser `prompt()` Dialogs:** Replaced blocking `prompt()` popups with an inline **Monthly Budget Target** editor and connected the **Add Expense** form directly to JavaScript state.
-- **Live Budget Status & KPI Strip:** Added real-time KPI boxes (**Total Budget**, **Total Spent**, **Remaining**) and a color-coded **Budget Status Banner** that reacts immediately to every budget or expense change.
-- **Dynamic Category Cards & Table Management:** Converted static HTML category cards and table rows into data-driven components rendered from JavaScript arrays, complete with a **Category Filter** dropdown, per-row **Delete** buttons, and a **Reset Sample Data** button.
+## Technologies Used
+- **HTML5:** Semantic dashboard structure (`<aside>`, `<header>`, `<main>`, `<section>`, `<form>`, `<table>`, `<details>`) and accessible form controls.
+- **CSS3:** CSS Grid and Flexbox layouts, custom CSS variables (`:root`) for light and dark (`@media (prefers-color-scheme: dark)`) themes, hover/focus micro-interactions, and responsive breakpoints below `768px`.
+- **JavaScript (ES6+):** State management with arrays and objects, `for` / `for...of` loops, `if / else if / else` budget threshold and validation logic, dynamic DOM rendering, and event delegation.
+- **Git & GitHub:** Version control and source code hosting.
+- **Netlify:** Continuous deployment and live web hosting.
 
-## How Conditionals Are Used
-- **Budget Health Evaluation (`evaluateBudgetHealth`):** Uses `if / else if / else` statements to compare total spending against the user's monthly budget:
-  - `remaining < 0` displays a red **Over Budget Alert**.
-  - `usagePercent >= 80` displays an amber **Approaching Limit** warning.
-  - `usagePercent >= 50` displays a **Moderate Pace** notice.
-  - Otherwise displays a green **Healthy Budget Status** message.
-- **Category Limit Checks (`renderCategoryCards`):** Evaluates whether each category's spending exceeds its target limit (`difference < 0`) or approaches it (`percentUsed >= 85`) to highlight cards that need attention.
-- **Form & Budget Validation (`handleAddExpenseSubmit`, `handleBudgetUpdate`):** Checks for empty names, missing categories/dates, or non-positive numbers (`<= 0` or `NaN`) and shows inline validation feedback without crashing or adding invalid records.
+## GitHub Repository Information
+- **Repository:** [basomasylvain/web-development-spendwise](https://github.com/basomasylvain/web-development-spendwise)
+- **Branch:** `main`
+- **Project Files:** `index.html`, `style.css`, `script.js`, and `README.md` at the repository root.
 
-## How Arrays Are Used to Store Data
-- `CATEGORY_CONFIG` stores an array of category objects (`{ name, tag, limit }`) defining the six budget categories (**Food**, **Transport**, **Rent**, **Entertainment**, **Savings**, **Utilities**).
-- `expenses` stores an array of expense objects (`{ id, name, amount, category, date }`). Adding a new expense pushes/prepends a structured object to `expenses`, and deleting an entry builds a filtered array without that `id`.
+## Live Netlify Website URL
+- **Live Site:** [https://spendwise-site.netlify.app/](https://spendwise-site.netlify.app/)
+- **Custom Subdomain:** Configured to `spendwise-site` on Netlify.
 
-## How the DOM Is Updated
-- **Loops + `document.createElement()`:** `renderCategoryCards()` and `renderExpenseTable()` iterate over `CATEGORY_CONFIG` and `expenses` using `for` and `for...of` loops, building fresh `<article>` cards and `<tr>` table rows dynamically.
-- **Targeted Metric Updates:** `renderSummaryMetrics()` updates `.textContent` and `.className` on the header badges, sidebar summary, KPI cards, and status banner whenever application state changes.
+## Deployment Process Summary
+1. Organized all static frontend files (`index.html`, `style.css`, `script.js`, and `README.md`) cleanly in the root of the public [web-development-spendwise](https://github.com/basomasylvain/web-development-spendwise) GitHub repository.
+2. Connected the GitHub repository to **Netlify** (`main` branch) and deployed the site with no build step required for static root assets.
+3. Renamed the default Netlify site subdomain to a project-specific name (`spendwise-site`) so the live URL is clear and memorable.
+4. Pushed updated code changes to GitHub and verified that Netlify automatically triggered a new build and updated the live website.
+5. Tested the deployed site in the browser across desktop and mobile viewports to confirm HTML, CSS, JavaScript interactivity, and embedded media load cleanly.
 
-## How User Interactions Are Handled Through Events
-- `submit` on `#expense-form` (`handleAddExpenseSubmit`) intercepts form submission with `event.preventDefault()`, validates fields, adds the new expense, resets the form, and re-renders the dashboard.
-- `click` and `keydown` (`Enter`) on `#update-budget-btn` / `#monthly-budget-input` update the monthly budget target live.
-- `change` on `#category-filter` filters visible rows in the expense table by category.
-- `click` (event delegation) on `#expenses-table-body` detects clicks on any row's **Delete** button via `data-expense-id` and removes that specific record.
-- `click` on `#reset-demo-btn` restores the initial sample dataset.
+## Challenges Encountered During Deployment
+- **Verifying Automatic Redeployments After Pushing Updates:** After pushing changes to `main`, it was important to confirm the latest commit actually reached production rather than viewing a cached earlier build. **Resolution:** Added a visible `Netlify Live` badge in the dashboard header and checked Netlify's deploy log and hard-refreshed the live site after pushing to GitHub.
+- **Ensuring Relative Paths & Responsive Layout Work in Production:** Mixing local file previews with hosted assets can sometimes expose broken relative paths or narrow-screen overflow. **Resolution:** Kept relative asset paths (`style.css` and `script.js`) clean at the project root and tested the live Netlify URL at mobile widths (`< 768px`) as well as in DevTools Console.
 
-## Challenges Encountered & How They Were Resolved
-- **Keeping Category Cards, KPIs, and Table Rows Synchronized:** Updating multiple sections individually risked stale totals when deleting an expense or changing the monthly budget. **Resolution:** Centralized state in `monthlyBudget` and `expenses` and routed every state mutation through a single `updateDashboard()` pipeline that recalculates totals via loops and re-renders all dependent UI sections together.
-- **Handling Dynamically Created Delete Buttons:** Newly added expense rows do not exist when the page first loads. **Resolution:** Used event delegation on the parent `#expenses-table-body` element and attached a `data-expense-id` attribute to each button so dynamically rendered rows remain interactive without re-binding listeners.
+## Lessons Learned
+- Connecting a public GitHub repository directly to Netlify creates a smooth continuous deployment workflow where pushing to `main` automatically publishes updates to a live URL.
+- Clear repository structure, relative file paths, and browser DevTools verification catch layout or script issues early before sharing a live link.
+- Documenting the live URL, deployment steps, and troubleshooting notes inside `README.md` makes a project much easier for reviewers and future contributors to run and understand.
