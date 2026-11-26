@@ -71,7 +71,6 @@
       </header>
 
       <main class="dashboard-content">
-        <!-- Live Budget Controls & Conditional Status Banner -->
         <section id="budget-control-section" class="panel-card budget-control-panel" aria-label="Monthly Budget Control">
           <div class="budget-control-row">
             <div class="budget-input-group">
@@ -112,19 +111,15 @@
           </div>
         </section>
 
-        <!-- Dynamic Six Category Cards Grid -->
         <section id="categories-section" class="categories-section" aria-labelledby="categories-heading">
           <div class="section-header-row">
             <h2 id="categories-heading">Spending Categories</h2>
             <span class="section-note">Updates automatically when expenses are added or removed</span>
           </div>
 
-          <div id="category-grid" class="category-grid">
-            <!-- Dynamically populated by renderCategoryCards() in script.js -->
-          </div>
+          <div id="category-grid" class="category-grid"></div>
         </section>
 
-        <!-- Interactive Add Expense Form -->
         <section id="add-expense-section" class="panel-card add-expense-section">
           <h2>Add Expense</h2>
 
@@ -196,7 +191,6 @@
           </details>
         </section>
 
-        <!-- Dynamic Expense Records Table with Category Filter -->
         <section id="expenses-list-section" class="panel-card expenses-section">
           <div class="table-header-bar">
             <h2>Your Expenses</h2>
@@ -225,9 +219,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody id="expenses-table-body">
-                <!-- Dynamically populated by renderExpenseTable() in script.js -->
-              </tbody>
+              <tbody id="expenses-table-body"></tbody>
             </table>
           </div>
           <p id="empty-table-message" class="empty-state-msg" hidden>
@@ -235,7 +227,6 @@
           </p>
         </section>
 
-        <!-- Budgeting Tips Video Section -->
         <section id="budget-tips-section" class="panel-card media-section">
           <h2>Budgeting Tips</h2>
           <p class="section-intro">Watch this quick overview on organizing monthly spending and building a budget.</p>
