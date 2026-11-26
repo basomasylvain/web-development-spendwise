@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SpendWise — Budget & Expense Tracker Dashboard</title>
+  <title>SpendWise — Interactive Budget & Expense Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -33,15 +33,15 @@
         </a>
         <a href="#categories-section" class="nav-item">
           <span class="nav-label">Category Budgets</span>
-          <span class="nav-meta">$880 / $1,150</span>
+          <span id="sidebar-ratio-meta" class="nav-meta">$880 / $1,150</span>
         </a>
         <a href="#add-expense-section" class="nav-item">
           <span class="nav-label">Add Expense</span>
-          <span class="nav-meta">Quick Form</span>
+          <span class="nav-meta">Live Form</span>
         </a>
         <a href="#expenses-list-section" class="nav-item">
           <span class="nav-label">Recent Activity</span>
-          <span class="nav-meta">5 Entries</span>
+          <span id="sidebar-count-meta" class="nav-meta">6 Entries</span>
         </a>
         <a href="#budget-tips-section" class="nav-item">
           <span class="nav-label">Budgeting Tips</span>
@@ -51,7 +51,8 @@
 
       <div class="sidebar-summary">
         <span class="summary-label">Monthly Budget Remaining</span>
-        <strong class="summary-value">$270.00</strong>
+        <strong id="sidebar-remaining-value" class="summary-value">$270.00</strong>
+        <span id="sidebar-usage-text" class="summary-subtext">76.5% of budget used</span>
       </div>
     </aside>
 
@@ -59,128 +60,149 @@
       <header id="dashboard-header" class="top-header">
         <div class="header-title-group">
           <h1>SpendWise Dashboard</h1>
-          <p class="subtitle">Track your monthly budgets, category spending, and expenses in one place.</p>
+          <p class="subtitle">Track your monthly budgets, category spending, and expenses in real time.</p>
         </div>
         <div class="header-meta">
           <span class="period-badge">November 2026</span>
-          <span class="total-badge">Total Spent: $880.00</span>
-          <button type="button" id="run-budget-prompt-btn" class="header-action-btn">
-            Run Budget Prompt
-          </button>
+          <span id="header-total-spent" class="total-badge">Total Spent: $880.00</span>
+          <span id="header-budget-badge" class="total-badge">Budget: $1,150.00</span>
         </div>
       </header>
 
       <main class="dashboard-content">
-        <section id="categories-section" class="categories-section" aria-labelledby="categories-heading">
-          <div class="section-header-row">
-            <h2 id="categories-heading">Spending Categories</h2>
-            <span class="section-note">Monthly budget overview (open DevTools Console for JS calculations)</span>
+        <!-- Live Budget Controls & Conditional Status Banner -->
+        <section id="budget-control-section" class="panel-card budget-control-panel" aria-label="Monthly Budget Control">
+          <div class="budget-control-row">
+            <div class="budget-input-group">
+              <label for="monthly-budget-input">Monthly Budget Target ($)</label>
+              <div class="inline-control-bar">
+                <input
+                  type="number"
+                  id="monthly-budget-input"
+                  value="1150"
+                  min="1"
+                  step="0.01"
+                  aria-label="Monthly Budget Target"
+                />
+                <button type="button" id="update-budget-btn" class="btn-primary">
+                  Update Budget
+                </button>
+              </div>
+            </div>
+
+            <div class="kpi-strip">
+              <div class="kpi-box">
+                <span class="kpi-label">Total Budget</span>
+                <strong id="kpi-budget">$1,150.00</strong>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-label">Total Spent</span>
+                <strong id="kpi-spent">$880.00</strong>
+              </div>
+              <div class="kpi-box">
+                <span class="kpi-label">Remaining</span>
+                <strong id="kpi-remaining">$270.00</strong>
+              </div>
+            </div>
           </div>
 
-          <div class="category-grid">
-            <article class="category-card" tabindex="0">
-              <div class="card-top">
-                <h3 class="category-title">Food</h3>
-                <span class="category-tag">Groceries & Dining</span>
-              </div>
-              <div class="card-amounts">
-                <strong class="spent-amount">$185.00</strong>
-                <span class="budget-limit">of $250.00</span>
-              </div>
-              <p class="card-status">74% used • $65.00 left</p>
-            </article>
-
-            <article class="category-card" tabindex="0">
-              <div class="card-top">
-                <h3 class="category-title">Transport</h3>
-                <span class="category-tag">Commute & Transit</span>
-              </div>
-              <div class="card-amounts">
-                <strong class="spent-amount">$68.50</strong>
-                <span class="budget-limit">of $100.00</span>
-              </div>
-              <p class="card-status">68.5% used • $31.50 left</p>
-            </article>
-
-            <article class="category-card" tabindex="0">
-              <div class="card-top">
-                <h3 class="category-title">Rent</h3>
-                <span class="category-tag">Housing</span>
-              </div>
-              <div class="card-amounts">
-                <strong class="spent-amount">$450.00</strong>
-                <span class="budget-limit">of $450.00</span>
-              </div>
-              <p class="card-status">100% allocated • Paid on schedule</p>
-            </article>
-
-            <article class="category-card" tabindex="0">
-              <div class="card-top">
-                <h3 class="category-title">Entertainment</h3>
-                <span class="category-tag">Leisure & Media</span>
-              </div>
-              <div class="card-amounts">
-                <strong class="spent-amount">$46.00</strong>
-                <span class="budget-limit">of $80.00</span>
-              </div>
-              <p class="card-status">57.5% used • $34.00 left</p>
-            </article>
-
-            <article class="category-card" tabindex="0">
-              <div class="card-top">
-                <h3 class="category-title">Savings</h3>
-                <span class="category-tag">Emergency & Goals</span>
-              </div>
-              <div class="card-amounts">
-                <strong class="spent-amount">$75.00</strong>
-                <span class="budget-limit">of $150.00</span>
-              </div>
-              <p class="card-status">50% target reached • $75.00 left</p>
-            </article>
-
-            <article class="category-card" tabindex="0">
-              <div class="card-top">
-                <h3 class="category-title">Utilities</h3>
-                <span class="category-tag">Power, Water & Data</span>
-              </div>
-              <div class="card-amounts">
-                <strong class="spent-amount">$55.50</strong>
-                <span class="budget-limit">of $120.00</span>
-              </div>
-              <p class="card-status">46.25% used • $64.50 left</p>
-            </article>
+          <div id="budget-status-banner" class="status-banner status-moderate" role="status" aria-live="polite">
+            Moderate Pace: You have used 76.5% of your monthly budget ($270.00 remaining).
           </div>
         </section>
 
+        <!-- Dynamic Six Category Cards Grid -->
+        <section id="categories-section" class="categories-section" aria-labelledby="categories-heading">
+          <div class="section-header-row">
+            <h2 id="categories-heading">Spending Categories</h2>
+            <span class="section-note">Updates automatically when expenses are added or removed</span>
+          </div>
+
+          <div id="category-grid" class="category-grid">
+            <!-- Dynamically populated by renderCategoryCards() in script.js -->
+          </div>
+        </section>
+
+        <!-- Interactive Add Expense Form -->
         <section id="add-expense-section" class="panel-card add-expense-section">
           <h2>Add Expense</h2>
 
-          <form id="expense-form">
-            <div class="form-group">
-              <label for="expense-name">Expense Name</label>
-              <input
-                type="text"
-                id="expense-name"
-                name="expense-name"
-                placeholder="e.g., Groceries, Bus Fare"
-              />
+          <form id="expense-form" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="expense-name">Expense Name</label>
+                <input
+                  type="text"
+                  id="expense-name"
+                  name="expense-name"
+                  placeholder="e.g., Groceries, Matatu Fare"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="expense-amount">Amount ($)</label>
+                <input
+                  type="number"
+                  id="expense-amount"
+                  name="expense-amount"
+                  placeholder="e.g., 45.00"
+                  min="0.01"
+                  step="0.01"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="expense-category">Category</label>
+                <select id="expense-category" name="expense-category" required>
+                  <option value="">-- Select a category --</option>
+                  <option value="Food">Food</option>
+                  <option value="Transport">Transport</option>
+                  <option value="Rent">Rent</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Savings">Savings</option>
+                  <option value="Utilities">Utilities</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="expense-date">Date</label>
+                <input
+                  type="date"
+                  id="expense-date"
+                  name="expense-date"
+                  required
+                />
+              </div>
             </div>
 
-            <div class="form-group">
-              <label for="expense-amount">Amount</label>
-              <input
-                type="number"
-                id="expense-amount"
-                name="expense-amount"
-                placeholder="e.g., 1500"
-                step="0.01"
-              />
+            <div class="form-actions-row">
+              <button type="submit" id="add-expense-btn" class="btn-primary">Add Expense</button>
+              <button type="button" id="reset-demo-btn" class="btn-secondary">Reset Sample Data</button>
             </div>
 
-            <div class="form-group">
-              <label for="expense-category">Category</label>
-              <select id="expense-category" name="expense-category">
-                <option value="">-- Select a category --</option>
+            <p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
+          </form>
+
+          <details class="usage-guide">
+            <summary>How to use this tracker</summary>
+            <p>
+              Adjust your monthly budget at the top or add new expenses below. SpendWise stores all
+              records in a JavaScript array, evaluates your spending with conditional rules, and updates
+              every card, total, and table row immediately.
+            </p>
+          </details>
+        </section>
+
+        <!-- Dynamic Expense Records Table with Category Filter -->
+        <section id="expenses-list-section" class="panel-card expenses-section">
+          <div class="table-header-bar">
+            <h2>Your Expenses</h2>
+            <div class="filter-group">
+              <label for="category-filter">Filter by Category:</label>
+              <select id="category-filter" aria-label="Filter expenses by category">
+                <option value="All">All Categories</option>
                 <option value="Food">Food</option>
                 <option value="Transport">Transport</option>
                 <option value="Rent">Rent</option>
@@ -189,31 +211,7 @@
                 <option value="Utilities">Utilities</option>
               </select>
             </div>
-
-            <div class="form-group">
-              <label for="expense-date">Date</label>
-              <input
-                type="date"
-                id="expense-date"
-                name="expense-date"
-              />
-            </div>
-
-            <button type="button" id="add-expense-btn" class="btn-primary">Add Expense</button>
-          </form>
-
-          <details class="usage-guide">
-            <summary>How to use this tracker</summary>
-            <p>
-              Open your browser Developer Console (<strong>F12</strong> or <strong>Ctrl+Shift+I</strong>)
-              to inspect SpendWise's JavaScript budget variables, functions, and calculated remaining balance
-              from your prompt entries.
-            </p>
-          </details>
-        </section>
-
-        <section id="expenses-list-section" class="panel-card expenses-section">
-          <h2>Your Expenses</h2>
+          </div>
 
           <div class="table-wrapper">
             <table id="expenses-table">
@@ -223,44 +221,20 @@
                   <th>Amount</th>
                   <th>Category</th>
                   <th>Date</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody id="expenses-table-body">
-                <tr>
-                  <td>Groceries</td>
-                  <td>$45.00</td>
-                  <td>Food</td>
-                  <td>2026-11-02</td>
-                </tr>
-                <tr>
-                  <td>Matatu Fare</td>
-                  <td>$3.50</td>
-                  <td>Transport</td>
-                  <td>2026-11-04</td>
-                </tr>
-                <tr>
-                  <td>Apartment Rent</td>
-                  <td>$450.00</td>
-                  <td>Rent</td>
-                  <td>2026-11-05</td>
-                </tr>
-                <tr>
-                  <td>Cinema Tickets</td>
-                  <td>$18.00</td>
-                  <td>Entertainment</td>
-                  <td>2026-11-10</td>
-                </tr>
-                <tr>
-                  <td>Fiber Internet & Power</td>
-                  <td>$55.50</td>
-                  <td>Utilities</td>
-                  <td>2026-11-15</td>
-                </tr>
+                <!-- Dynamically populated by renderExpenseTable() in script.js -->
               </tbody>
             </table>
           </div>
+          <p id="empty-table-message" class="empty-state-msg" hidden>
+            No expenses recorded for this category yet. Add one using the form above!
+          </p>
         </section>
 
+        <!-- Budgeting Tips Video Section -->
         <section id="budget-tips-section" class="panel-card media-section">
           <h2>Budgeting Tips</h2>
           <p class="section-intro">Watch this quick overview on organizing monthly spending and building a budget.</p>
