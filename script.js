@@ -6,6 +6,7 @@
 
 console.info("SpendWise production bundle initialized — live at https://spendwise-site.netlify.app/");
 
+// 1. Application Configuration & Initial Dataset (Arrays & Objects)
 const CURRENCY_SYMBOL = "$";
 
 const CATEGORY_CONFIG = [
@@ -26,11 +27,13 @@ const INITIAL_EXPENSES = [
   { id: 6, name: "Fiber Internet & Power", amount: 55.5, category: "Utilities", date: "2026-11-15" }
 ];
 
+// Mutable Application State
 let monthlyBudget = 1150.0;
 let expenses = INITIAL_EXPENSES.map((item) => ({ ...item }));
 let activeCategoryFilter = "All";
 let nextExpenseId = 7;
 
+// 2. Cached DOM References
 const monthlyBudgetInput = document.getElementById("monthly-budget-input");
 const updateBudgetBtn = document.getElementById("update-budget-btn");
 const headerTotalSpent = document.getElementById("header-total-spent");
@@ -55,6 +58,8 @@ const categoryFilterSelect = document.getElementById("category-filter");
 const expensesTableBody = document.getElementById("expenses-table-body");
 const emptyTableMessage = document.getElementById("empty-table-message");
 
+// 3. Helper Formatting & Loop-Based Calculation Functions
+
 function formatCurrency(amount) {
   const numericValue = Number(amount);
   const absFormatted = Math.abs(numericValue).toLocaleString("en-US", {
@@ -64,6 +69,9 @@ function formatCurrency(amount) {
   return numericValue < 0 ? `-${CURRENCY_SYMBOL}${absFormatted}` : `${CURRENCY_SYMBOL}${absFormatted}`;
 }
 
+/**
+ * Uses a loop to calculate total spending across all stored expense records.
+ */
 function calculateTotalExpenses(records) {
   let total = 0;
   for (let i = 0; i < records.length; i++) {
@@ -72,6 +80,9 @@ function calculateTotalExpenses(records) {
   return total;
 }
 
+/**
+ * Uses a loop to compute total spending for a specific category.
+ */
 function calculateCategorySpent(categoryName) {
   let categorySum = 0;
   for (const expense of expenses) {
@@ -82,6 +93,7 @@ function calculateCategorySpent(categoryName) {
   return categorySum;
 }
 
+// 4. Conditional Decision-Making for Budget Feedback
 function evaluateBudgetHealth(budget, spent) {
   const remaining = budget - spent;
   const usagePercent = budget > 0 ? (spent / budget) * 100 : 100;
@@ -117,6 +129,8 @@ function evaluateBudgetHealth(budget, spent) {
   }
 }
 
+// 5. DOM Rendering Functions
+
 function renderSummaryMetrics() {
   const totalSpent = calculateTotalExpenses(expenses);
   const evaluation = evaluateBudgetHealth(monthlyBudget, totalSpent);
@@ -143,6 +157,9 @@ function renderSummaryMetrics() {
   budgetStatusBanner.textContent = evaluation.message;
 }
 
+/**
+ * Loops through CATEGORY_CONFIG and dynamically builds each category card in the DOM.
+ */
 function renderCategoryCards() {
   categoryGrid.innerHTML = "";
 
@@ -184,6 +201,9 @@ function renderCategoryCards() {
   }
 }
 
+/**
+ * Loops through stored expenses, applies active category filter, and updates table rows.
+ */
 function renderExpenseTable() {
   expensesTableBody.innerHTML = "";
   let renderedCount = 0;
@@ -240,6 +260,8 @@ function showFormFeedback(message, isError) {
   formFeedback.textContent = message;
   formFeedback.className = `form-feedback ${isError ? "is-error" : "is-success"}`;
 }
+
+// 6. Event Listeners Connecting User Actions to Data & DOM Updates
 
 function handleBudgetUpdate() {
   const newBudget = Number(monthlyBudgetInput.value);
@@ -338,6 +360,7 @@ function handleResetDemo() {
   updateDashboard();
 }
 
+// Attach Event Listeners
 updateBudgetBtn.addEventListener("click", handleBudgetUpdate);
 monthlyBudgetInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
@@ -354,5 +377,6 @@ categoryFilterSelect.addEventListener("change", (event) => {
 });
 resetDemoBtn.addEventListener("click", handleResetDemo);
 
+// Initialize default date input & render initial dashboard state
 expenseDateInput.value = new Date().toISOString().split("T")[0];
 updateDashboard();
