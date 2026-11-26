@@ -243,6 +243,24 @@ h3 {
   color: var(--text-primary);
 }
 
+.header-action-btn {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.42rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--text-primary);
+  background-color: var(--accent-color);
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.header-action-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
 /* Six Category Cards Grid + Flexbox Card Internals */
 .categories-section {
   display: flex;
@@ -478,6 +496,7 @@ select {
 input:focus,
 select:focus,
 .btn-primary:focus-visible,
+.header-action-btn:focus-visible,
 .usage-guide summary:focus-visible,
 .nav-item:focus-visible {
   outline: none;
