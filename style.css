@@ -14,13 +14,13 @@ body {
 }
 
 main {
-  max-width: 640px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
 h1 {
   font-size: 2rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
 }
 
 h2 {
@@ -44,11 +44,12 @@ select {
   border-radius: 6px;
   font-size: 1rem;
   background-color: #ffffff;
+  color: #1f2937;
 }
 
 /* ID Selectors */
 #app-header {
-  max-width: 640px;
+  max-width: 720px;
   margin: 0 auto 1.5rem auto;
   background-color: #0f766e;
   color: #ffffff;
@@ -67,7 +68,43 @@ select {
   border-left: 5px solid #4f46e5;
 }
 
+#budget-tips-section {
+  background-color: #ffffff;
+  border-left: 5px solid #0284c7;
+}
+
+#expenses-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#expenses-table th,
+#expenses-table td {
+  border: 1px solid #cbd5e1;
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+}
+
+#expenses-table thead {
+  background-color: #3730a3;
+  color: #ffffff;
+}
+
 /* Class Selectors */
+.header-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.brand-logo {
+  border-radius: 6px;
+}
+
 .subtitle {
   font-size: 1rem;
   color: #ccfbf1;
@@ -94,12 +131,69 @@ select {
   cursor: pointer;
 }
 
-.placeholder-text {
-  color: #4b5563;
-  font-style: italic;
-  padding: 1rem;
-  background-color: #ffffff;
-  border: 1px dashed #c7d2fe;
+.btn-primary:hover {
+  background-color: #115e59;
+}
+
+.usage-guide {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
-  text-align: center;
+}
+
+.usage-guide summary {
+  font-weight: bold;
+  cursor: pointer;
+  color: #0f766e;
+}
+
+.usage-guide p {
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  color: #334155;
+}
+
+.section-intro {
+  margin-bottom: 0.85rem;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.video-container iframe {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+/* Advanced CSS Selectors */
+.expenses-section td {
+  font-size: 0.95rem;
+}
+
+.add-expense-section > form {
+  margin-bottom: 0.5rem;
+}
+
+#expenses-table tbody tr:nth-child(even) {
+  background-color: #f1f5f9;
+}
+
+#expenses-table tbody tr:hover {
+  background-color: #e0e7ff;
+}
+
+input:not([type="button"]) {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
 }
