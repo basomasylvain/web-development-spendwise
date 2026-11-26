@@ -11,6 +11,7 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="dashboard-shell">
@@ -63,6 +64,9 @@
         <div class="header-meta">
           <span class="period-badge">November 2026</span>
           <span class="total-badge">Total Spent: $880.00</span>
+          <button type="button" id="run-budget-prompt-btn" class="header-action-btn">
+            Run Budget Prompt
+          </button>
         </div>
       </header>
 
@@ -70,7 +74,7 @@
         <section id="categories-section" class="categories-section" aria-labelledby="categories-heading">
           <div class="section-header-row">
             <h2 id="categories-heading">Spending Categories</h2>
-            <span class="section-note">Static monthly budget overview</span>
+            <span class="section-note">Monthly budget overview (open DevTools Console for JS calculations)</span>
           </div>
 
           <div class="category-grid">
@@ -201,9 +205,9 @@
           <details class="usage-guide">
             <summary>How to use this tracker</summary>
             <p>
-              Enter an expense name, cost amount, category (Food, Transport, Rent, Entertainment,
-              Savings, or Utilities), and date in the form above, then click <strong>Add Expense</strong>
-              to record it in your table.
+              Open your browser Developer Console (<strong>F12</strong> or <strong>Ctrl+Shift+I</strong>)
+              to inspect SpendWise's JavaScript budget variables, functions, and calculated remaining balance
+              from your prompt entries.
             </p>
           </details>
         </section>
